@@ -1,0 +1,87 @@
+clear
+tab = readtable("Manuscripts.csv");
+tab.Submitted.Format = 'default';
+tab.Timestamp.Format = 'default';
+
+volume = 1;
+issue = 1;
+
+generateAuthors(tab);
+
+template = readlines("template");
+
+for i = 1:height(tab)
+    row = tab(i,:);
+    
+    if contains(string(row.ShortID),"OA")
+        row.Type = "Original Article";
+    else
+        row.Type = "Rapid Communication";
+    end
+
+    f = fopen(string(row.ManuscriptID)+".md",'w');
+
+    pat = "{{" + lettersPattern + "}}";
+    for i = 1:numel(template)
+        line = template(i);
+        variable = extract(line,pat);
+        if ~isempty(variable)
+            variable = erase(variable,["{","}"]);
+            value = string(row{1,variable});
+            if strcmp(variable,"Title")
+                value = replace(value,"""","""""");
+            end
+            value = replace(value,"\","\")
+            line = replace(line,pat,value);
+        end
+        fprintf(f,line+"\n");
+        thing = 1;
+    end
+
+    fclose(f);
+    % 
+    % row.Title = replace(row.Title,"'","''");
+    % row.Abstract = replace(row.Abstract,"'","''");
+    % 
+    % fprintf(f,"---\nlayout: scholar\n");
+    % fprintf(f,"title: ""%s""\n",string(row.Title));
+    % fprintf(f,"abstract: '%s'\n",string(row.Abstract));
+    % fprintf(f,"authors:\n - ""%s""\n", string(row.AuthorName));
+    % fprintf(f,"volume: %d\n", volume);
+    % fprintf(f,"issue: %d\n", issue);
+    % fprintf(f,"firstpage: %d\n", i);
+    % fprintf(f,"lastpage: %d\n", i+1);
+    % if contains(string(row.ShortID),"OA")
+    %     fprintf(f,"type: ""Original Article""\n");
+    % else
+    %     fprintf(f,"type: ""Rapid Communication""\n");
+    % end
+    % fprintf(f,"pdfpermalink: ""temp.pdf""\n");
+    % fprintf(f,"citedate: %s\n", string(row.Submitted));
+    % fprintf(f,"date: %s\n", string(row.Timestamp));
+    % 
+    % 
+    % fprintf(f,"---\n");
+    % 
+    % fclose(f);
+    % % break
+end
+
+function [] = generateAuthors(tab)
+authfile = fopen("../_data/authors.yml",'w');
+
+[~,ia,~] = unique(tab.AuthorName);
+authtab = tab(ia,:);
+
+for i = 1:height(authtab)
+    row = authtab(i,:);
+    row.Affiliation = replace(string(row.Affiliation),"2001","<br>2001");
+    fprintf(authfile,"%s: \n",string(row.AuthorName));
+    fprintf(authfile,"  name        : ""%s"" \n", string(row.AuthorName));
+    fprintf(authfile,"  bio         : ""%s"" \n", string(row.Affiliation));
+    fprintf(authfile,"  links: \n    - label: ""Email""\n      icon: ""fas fa-fw fa-envelope-square"" \n");
+    fprintf(authfile,"      url: ""mailto:%s"" \n",string(row.EmailAddress));
+end
+fclose(authfile);
+
+end
