@@ -69,6 +69,8 @@
   }
 }
 
+
+
 .archive__item-excerpt {
   margin-top: 0;
   font-size: $type-size-6;
@@ -86,9 +88,12 @@
   position: relative;
   border-radius: $border-radius;
   overflow: hidden;
-
+  text-align: center;
   img {
     width: 100%;
+  }
+  .shrink {
+    width: 70%;
   }
 }
 
@@ -100,7 +105,7 @@
   padding: 2px 5px;
   color: #fff;
   font-family: $caption-font-family;
-  font-size: $type-size-8;
+  font-size: $type-size-6;
   background: #000;
   text-align: end;
   z-index: 5;
@@ -221,7 +226,7 @@
 
   .archive__item-teaser {
     @include breakpoint($small) {
-      max-height: 200px;
+      max-height: 120px;
     }
 
     @include breakpoint($medium) {
@@ -236,7 +241,7 @@
 
 .feature__wrapper {
   @include clearfix();
-  margin-bottom: 2em;
+  margin-bottom: 0em;
   border-bottom: 1px solid $border-color;
 
   .archive__item-title {
@@ -270,7 +275,7 @@
     }
 
     .feature__item-teaser {
-      max-height: 200px;
+      max-height: 150px;
       overflow: hidden;
     }
   }
@@ -299,7 +304,7 @@
     }
 
     .archive__item-teaser {
-      margin-bottom: 2em;
+      margin-bottom: 0em;
     }
   }
 
@@ -363,7 +368,7 @@
     }
 
     .archive__item-teaser {
-      margin-bottom: 2em;
+      margin-bottom: 0em;
     }
 
     a.btn::before {
@@ -428,4 +433,53 @@
 	.feature__wrapper {
 		display: inline-block;
 	}
+}
+
+.archive_one_tone {
+	
+	padding: .5em;
+	background-color: #fff;
+	margin-bottom:.5em;
+	outline-color: $muted-text-color;
+	&:hover {
+		outline-style:solid;
+		outline-width:2px;
+	}
+	a {
+		color: $text-color;
+	}
+}
+
+.archive_one_tone.EC_box {
+	outline-color: $primary-color;
+}
+
+.archive_two_tone.EC_box {
+	outline-color: $primary-color;
+}
+
+
+.archive_two_tone {
+	padding: .5em;
+	margin-bottom:.5em;
+	background-color: #eee;
+	outline-color: $muted-text-color;
+	&:hover {
+		outline-style:solid;
+		outline-width:2px;
+	}
+	a {
+		color: $text-color;
+	}
+}
+.section_one_tone {
+	background-color: #fff;
+	margin:0em -.25em 0em -.25em;
+	padding: 1em .5em 1em .5em;
+}
+
+.section_two_tone {
+	background-color: #eee;
+	margin:0em -.25em 0em -.25em;
+	padding: 1em .5em 1em .5em;
 }

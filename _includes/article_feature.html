@@ -1,0 +1,17 @@
+{% if post.EC %}
+	{% assign imgname = "EC_banner.svg" %}
+{% else %}
+	{% assign imgname = "EC_empty.svg" %}
+{% endif %}
+
+
+
+<div class="archive_{{include.color | default:"one" | strip}}_tone {% if post.EC %} EC_box {% endif%}" 
+	style="display: flex;width=100%;gap:.25in;justify-content:center;">
+<div style="flex: 0 0 1in;margin-top:-.5em">
+	<div class="bannerfull"><a href="/about/#what-is-editor-s-suggestion"><img src="/assets/images/{{imgname}}"></a></div>
+</div>
+<div style="flex: 1 0 1in;">
+	{% include article_archive.html long="true"%} 
+</div>
+</div>

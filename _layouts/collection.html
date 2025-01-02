@@ -1,10 +1,27 @@
 ---
-layout: archive
+layout: single
+header: 
+  overlay_color: "#333"
+author_profile: false
+toc: true
+toc_sticky: true
+sidebar:
+  - title: "Physics in Progress"
+    image: "/assets/images/RubensFeature.jpeg"
+    image_alt: "image"
+    text: "**Volume 1**<br>Issue 1<br>January 2024."
+    nav: "issuecol"
 ---
 
-{{ content }}
+{% assign groups = site.vol1_1 | group_by: "section" | sort: "name"%}
+{% for cat in groups %}{% unless cat.name == "1"%}
+{% assign f = site.data.sections[cat.name] %}
 
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-<div class="entries-{{ entries_layout }}">
-  {% include documents-collection.html collection=page.collection sort_by=page.sort_by sort_order=page.sort_order type=entries_layout %}
-</div>
+<h1 id="{{f.label | slugify}}"> {{f.label}} </h1>
+{% include feature_single.html type="left"%}
+
+	{% for page in cat.items %}
+		{% assign post = page %}
+		{% include article_archive.html%}
+	{% endfor %}
+{% endunless %}{% endfor %}

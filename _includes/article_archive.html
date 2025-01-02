@@ -1,0 +1,69 @@
+{% if post.id %}
+  {% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
+{% else %}
+  {% assign title = post.title %}
+{% endif %}
+
+{% if include.long != "true" %} 
+	{% assign notlong = true %}
+{% endif %} 
+
+<div class="{{ include.type | default: 'list' }}__item {% if notlong %} archive_{{include.color | default: "one" | strip}}_tone {% if post.EC %} EC_box {% endif%}{% endif %}" >
+	
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+	
+	
+	{% if post.type or post.EC %}
+	<div style="display:flex;justify-content:space-between;margin-bottom: -2.5em;">
+	
+		<div style="margin-top:-.6em">
+		{% if post.EC and notlong %}
+		<a href="/about/#what-is-editor-s-suggestion">
+		<svg
+		   width="1.5em"
+		   height="1em"
+		   viewBox="0 0 25.399997 17.051918"
+		   version="1.1"
+		   id="svg1"
+		   xmlns="http://www.w3.org/2000/svg"
+		   xmlns:svg="http://www.w3.org/2000/svg">
+		  <defs
+			 id="defs1" />
+		  <g
+			 id="layer1"
+			 transform="translate(-92.164665,-139.88688)">
+			<path
+			   style="fill:#d0202e;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+			   d="m 92.296956,140.01917 h 25.135414 v 13.28212 l -12.56773,3.50018 -12.567684,-3.50018 z"
+			   id="path1" />
+		  </g>
+		</svg></a>
+		{% endif %}
+		</div>
+		{% if post.type %}
+		<div style="text-align:right;">
+			<b>{{post.type}}</b>
+		</div>
+		{%endif%}
+		
+	</div>
+	{% endif %}
+	
+	<br>
+    
+		<h2 class="archive__item-title {%if notlong%} no_toc{%endif%}" itemprop="headline">
+			<a href="{{ post.url | relative_url }}" rel="permalink">
+				{{ title }}
+			</a>
+		</h2>
+ 
+	<p class="archive__item-excerpt" style="font-size:.8em;"  itemprop="description">
+    {% if post.author %}<b>Author</b>: {{ post.author }}
+	{% endif %} 
+	{% if post.abstract and include.long=="true"%}<br><b>Abstract</b>: {{ post.abstract }}
+	{% endif %} 
+	
+	</p>
+	
+  </article>
+</div>

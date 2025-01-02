@@ -1,0 +1,144 @@
+clear
+
+% Used to generate paths
+volume = 1;
+issue = 1;
+
+manuscript_csv      = "Manuscripts.csv"; % relative path to manuscript info
+issue_csv           = "Issue.csv"; % relative path to section info
+article_template    = "../../Utilities/template"; % relative path to manuscript template
+collection_template = "../../Utilities/template_collection"; % relative path to section template
+sections_YAML       = "../_data/sections.yml";
+nav_YAML            = "../_data/navigation.yml";
+
+% Path that will be used to generate files
+volpath = "/vol"+string(volume)+"-"+string(issue)+"/";
+
+% Read the data
+mantab = readtable(manuscript_csv);
+issuetab = readtable(issue_csv);
+
+% Correct the datetime google forms -> jekyll format
+mantab.Submitted.Format = 'yyyy-MM-dd';
+mantab.Timestamp.Format = 'yyyy-MM-dd';
+
+% Add some post-processed columns
+mantab.PDF = volpath+string(mantab.PDF);
+mantab.Bib = volpath+string(mantab.Bib);
+slugify = @(str) regexprep(lower(string(str)),'[^a-zA-Z0-9]','-');
+issuetab.Permalink = volpath + slugify(string(issuetab.Section))+"/";
+
+
+generateAuthors(mantab);
+
+generateArticles(mantab,article_template);
+
+% Update the sections.yaml
+generateSectionsYAML(issuetab,sections_YAML);
+
+% Update the navigation yaml
+generateNavYAML(issuetab,nav_YAML,volpath);
+
+function [] = generateNavYAML(issuetab,filename,volpath)
+navhead = "# main links\nmain:\n  - title: ""Highlights""\n    url: /vol1-1/highlights/\n  - title: ""About""\n    url: /about/\n    sublinks: \n     - title: ""Information for Authors""\n       url: /authors/\n     - title: ""Submissions""\n       url: /submissions/\n  - title: ""Recent""\n";
+
+f = fopen(filename,'w');
+fprintf(f,navhead);
+fprintf(f,"    url: "+volpath+"index/\n");
+fprintf(f,"    sublinks:\n");
+for i = 1:height(issuetab)
+    row = issuetab(i,:);
+    fprintf(f,"      - title: ""%s""\n",string(row.Section));
+    fprintf(f,"        url: ""%s""\n",string(row.Permalink));
+end
+fprintf(f,"issuecol:\n  - title: Collections in this issue\n");
+fprintf(f,"    url: "+volpath+"index/\n");
+fprintf(f,"    children:\n");
+for i = 1:height(issuetab)
+    row = issuetab(i,:);
+    fprintf(f,"      - title: ""%s""\n",string(row.Section));
+    fprintf(f,"        url: ""%s""\n",string(row.Permalink));
+end
+fprintf(f,"about:\n  - title: ""About <i>Physics in Progress</i>""\n    url: /about/\n    children:\n      - title: ""Information for authors""\n        url: /authors/\n      - title: Submissions\n        url: /submissions/ ");
+fclose(f);
+end
+
+function [] = generateSectionsYAML(issuetab,filename)
+f = fopen(filename,'w');
+for i = 1:height(issuetab)
+    row = issuetab(i,:);
+    row.Excerpt = replace(row.Excerpt,"'","''");
+    fprintf(f,"%s:\n", string(row.Section));
+    fprintf(f,"  label: ""%s""\n", string(row.Section));
+    fprintf(f,"  excerpt: '%s'\n", string(row.Excerpt));
+
+    fprintf(f,"  url: ""%s""\n", row.Permalink);
+    fprintf(f,"  btn_label: ""Explore this collection""\n");
+    fprintf(f,"  btn_class: ""btn--primary""\n");
+    fprintf(f,"  image_path: ""/assets/images/%s""\n", string(row.ImageName));
+    fprintf(f,"  alt: ""%s""\n", string(row.Alt));
+    
+end
+fclose(f);
+end
+
+function [] = generateArticles(tab,template_filename)
+
+template = readlines(template_filename);
+
+
+
+
+for i = 1:height(tab)
+    row = tab(i,:);
+    
+    if contains(string(row.ShortID),"OA")
+        row.Type = "Original Article";
+    else
+        row.Type = "Rapid Communication";
+    end
+
+    f = fopen(string(row.ManuscriptID)+".md",'w');
+
+    pat = "{{" + lettersPattern + "}}";
+    for i = 1:numel(template)
+        line = template(i);
+        variable = extract(line,pat);
+        if ~isempty(variable)
+            variable = erase(variable,["{","}"]);
+            value = string(row{1,variable});
+            if strcmp(variable,"Title")
+                value = replace(value,"""","""""");
+            elseif strcmp(variable,"Abstract")
+                value = replace(value,'''','''''');
+            end
+            value = replace(value,"%","%%");
+            value = replace(value,"\","\\");
+            line = replace(line,pat,value);
+        end
+        fprintf(f,line+"\n");
+        thing = 1;
+    end
+
+    fclose(f);
+end
+end
+
+function [] = generateAuthors(tab)
+authfile = fopen("../_data/authors.yml",'w');
+
+[~,ia,~] = unique(tab.AuthorName);
+authtab = tab(ia,:);
+
+for i = 1:height(authtab)
+    row = authtab(i,:);
+    row.Affiliation = replace(string(row.Affiliation),"2001","<br>2001");
+    fprintf(authfile,"%s: \n",string(row.AuthorName));
+    fprintf(authfile,"  name        : ""%s"" \n", string(row.AuthorName));
+    fprintf(authfile,"  bio         : ""%s"" \n", string(row.Affiliation));
+    fprintf(authfile,"  links: \n    - label: ""Email""\n      icon: ""fas fa-fw fa-envelope-square"" \n");
+    fprintf(authfile,"      url: ""mailto:%s"" \n",string(row.EmailAddress));
+end
+fclose(authfile);
+
+end

@@ -1,0 +1,17 @@
+---
+layout: single
+---
+{{page.content}}
+
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+<div style="display: flex;width=100%;gap:.25in; flex-wrap:wrap-reverse;justify-content:center;">
+<div style="flex: 1 0 3in; min-width:3in;">
+	<h1> Abstract </h1>
+	<p> {{page.abstract}} </p>
+
+	<p><a href="{{site.url}}{{page.pdfpermalink}}" class="btn btn--primary btn--large"> Full text (pdf)</a> <a href="{{site.url}}{{page.citepermalink}}" class="btn btn--inverse btn--large"> Cite this work</a></p>
+</div>
+<div style="flex: 0 0 1.5in;"> <div class="bannerfull"><a href="/about/#what-is-editor-s-suggestion"><img src="/assets/images/{% if page.EC %}EC_banner.svg{% else %}EC_empty.svg {%endif %}"></a></div>
+ </div>
+</div>

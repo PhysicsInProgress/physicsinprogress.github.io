@@ -1,12 +1,50 @@
 # main links
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  # - title: "About"
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
-  # - title: "Sample Posts"
-  #   url: /year-archive/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
-  # - title: "Sitemap"
-  #   url: /sitemap/
+  - title: "Highlights"
+    url: /vol1-1/highlights/
+  - title: "About"
+    url: /about/
+    sublinks: 
+     - title: "Information for Authors"
+       url: /authors/
+     - title: "Submissions"
+       url: /submissions/
+  - title: "Recent"
+    url: /vol1-1/index/
+    sublinks:
+      - title: "Historic electron measurements"
+        url: "/vol1-1/historic-electron-measurements/"
+      - title: "Waves and Optics"
+        url: "/vol1-1/waves-and-optics/"
+      - title: "Mechanics"
+        url: "/vol1-1/mechanics/"
+      - title: "Quantum Phenomena"
+        url: "/vol1-1/quantum-phenomena/"
+      - title: "Aerospace Sciences"
+        url: "/vol1-1/aerospace-sciences/"
+      - title: "Astronomy and Astrophysics"
+        url: "/vol1-1/astronomy-and-astrophysics/"
+issuecol:
+  - title: Collections in this issue
+    url: /vol1-1/index/
+    children:
+      - title: "Historic electron measurements"
+        url: "/vol1-1/historic-electron-measurements/"
+      - title: "Waves and Optics"
+        url: "/vol1-1/waves-and-optics/"
+      - title: "Mechanics"
+        url: "/vol1-1/mechanics/"
+      - title: "Quantum Phenomena"
+        url: "/vol1-1/quantum-phenomena/"
+      - title: "Aerospace Sciences"
+        url: "/vol1-1/aerospace-sciences/"
+      - title: "Astronomy and Astrophysics"
+        url: "/vol1-1/astronomy-and-astrophysics/"
+about:
+  - title: "About <i>Physics in Progress</i>"
+    url: /about/
+    children:
+      - title: "Information for authors"
+        url: /authors/
+      - title: Submissions
+        url: /submissions/ 
