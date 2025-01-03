@@ -88,9 +88,12 @@
   position: relative;
   border-radius: $border-radius;
   overflow: hidden;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img {
     width: 100%;
+	border-radius: $border-radius;
   }
   .shrink {
     width: 70%;
@@ -234,6 +237,11 @@
     }
   }
 }
+
+.teaser-shrink {
+	width:70%;
+}
+
 
 /*
    Features

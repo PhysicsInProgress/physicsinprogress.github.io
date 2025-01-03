@@ -1,8 +1,10 @@
+{% unless include.assigned %}
 {% if include.id %}
   {% assign feature_row = page[include.id] %}
 {% else %}
   {% assign feature_row = page.feature_row %}
 {% endif %}
+{% endunless%}
 
 <div class="feature__wrapper">
 
@@ -10,8 +12,8 @@
     <div class="feature__item{% if include.type %}--{{ include.type }}{% endif %}">
       <div class="archive__item">
         {% if f.image_path %}
-          <div class="archive__item-teaser {{include.class}}">
-			<div {% if f.alt %} class="{{f.alt}}" {% endif %}>
+          <div class="archive__item-teaser">
+			<div {% if include.class %} class="{{include.class}}" {% endif %}>
             <img src="{{ f.image_path }}"
                  alt="{% if f.alt %}{{ f.alt }}{% endif %}">
 			</div>
@@ -23,7 +25,14 @@
 
         <div class="archive__item-body">
           {% if f.title %}
-            <h1 class="archive__item-title" id="{{f.title | strip_html | slugify}}" align="left">{{ f.title }}</h1>
+			{% if include.h2 %}
+				<h2 class="archive__item-title" id="{{f.title | strip_html | slugify}}" align="left">{{ f.title }}</h2>
+			{% else%}
+				<h1 class="archive__item-title" id="{{f.title | strip_html | slugify}}" align="left">{{ f.title }}</h1>
+			{% endif %} 
+          {% endif %}
+		  {% if include.uselabel %}
+            <h1 class="archive__item-title" id="{{f.label | strip_html | slugify}}" align="left">{{ f.label }}</h1>
           {% endif %}
 
           {% if f.excerpt %}
