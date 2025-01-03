@@ -9,7 +9,7 @@ issue_csv           = "Issue.csv"; % relative path to section info
 article_template    = "template"; % relative path to manuscript template
 collection_template = "template_collection.html"; % relative path to section template
 sections_YAML       = "../_data/sections.yml";
-nav_YAML            = "../_data/navigationtest.yml";
+nav_YAML            = "../_data/navigation.yml";
 
 % Path that will be used to generate files
 issuestr = "vol"+string(volume)+"-"+string(issue);
@@ -188,7 +188,9 @@ authtab = tab(ia,:);
 
 for i = 1:height(authtab)
     row = authtab(i,:);
-    row.Affiliation = replace(string(row.Affiliation),"2001","<br>2001");
+    if contains(row.Affiliation,"2001")
+        row.Affiliation = replace(string(row.Affiliation),"2001","<br>2001");
+    end
     fprintf(authfile,"%s: \n",string(row.AuthorName));
     fprintf(authfile,"  name        : ""%s"" \n", string(row.AuthorName));
     fprintf(authfile,"  first       : ""%s""\n", string(row.AuthorFirst));

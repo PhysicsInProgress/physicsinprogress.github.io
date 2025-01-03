@@ -1,100 +1,30 @@
-Andrew Valentini: 
-  name        : "Andrew Valentini" 
-  first       : "Andrew"
-  last        : "Valentini"
+Arnold Person: 
+  name        : "Arnold Person" 
+  first       : "Arnold"
+  last        : "Person"
   suffix      : ""
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
+  bio         : "A department somewhere" 
   links: 
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:avalentini@carthage.edu" 
-Carissa Kiehl: 
-  name        : "Carissa Kiehl" 
-  first       : "Carissa"
-  last        : "Kiehl"
-  suffix      : ""
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
-  links: 
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:ckiehl@carthage.edu" 
-Clayton Markech: 
-  name        : "Clayton Markech" 
-  first       : "Clayton"
-  last        : "Markech"
-  suffix      : ""
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
-  links: 
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:cmarkech@carthage.edu" 
-Justin Wheeler: 
-  name        : "Justin Wheeler" 
-  first       : "Justin"
-  last        : "Wheeler"
-  suffix      : ""
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
-  links: 
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:jwheeler1@carthage.edu" 
-Kaitlyn Prokup: 
-  name        : "Kaitlyn Prokup" 
-  first       : "Kaitlyn"
-  last        : "Prokup"
-  suffix      : ""
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
-  links: 
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:kprokup@carthage.edu" 
-Kassia Schraufnagel: 
-  name        : "Kassia Schraufnagel" 
-  first       : "Kassia"
-  last        : "Schraufnagel"
-  suffix      : ""
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
-  links: 
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:kschraufnagel@carthage.edu" 
-Logan Dales: 
-  name        : "Logan Dales" 
-  first       : "Logan"
-  last        : "Dales"
-  suffix      : ""
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
-  links: 
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:ldales@carthage.edu" 
-Riley H. Johnson: 
-  name        : "Riley H. Johnson" 
-  first       : "Riley H."
-  last        : "Johnson"
-  suffix      : ""
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
-  links: 
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:rjohnson20@carthage.edu" 
-Sophia Figura: 
-  name        : "Sophia Figura" 
-  first       : "Sophia"
-  last        : "Figura"
-  suffix      : ""
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
-  links: 
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:sfigura@carthage.edu" 
-Thomas Howard IV: 
-  name        : "Thomas Howard IV" 
-  first       : "Thomas"
-  last        : "Howard"
+      url: "mailto:aperson@thing.edu" 
+Bob Sample IV: 
+  name        : "Bob Sample IV" 
+  first       : "Bob"
+  last        : "Sample"
   suffix      : "IV"
-  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
+  bio         : "A department somewhere" 
   links: 
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square" 
-      url: "mailto:thoward@carthage.edu" 
+      url: "mailto:bobsample@place.edu" 
+Brian Example: 
+  name        : "Brian Example" 
+  first       : "Brian"
+  last        : "Example"
+  suffix      : ""
+  bio         : "A department somewhere" 
+  links: 
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square" 
+      url: "mailto:brianexample@blah.edu" 

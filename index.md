@@ -27,18 +27,18 @@ feature_rowHighlightHead:
     btn_label: "Explore all Editor's Suggestions"
     btn_class: "btn--primary"
 feature_row3:
-  - image_path: /assets/images/eovermplot.png
+  - image_path: /assets/images/Exampleimage.png
     alt: "shrink"
-    title: '<a href="/vol1-1/PIP-412018RC045/">Measuring the radius of circular electron beams to determine the charge-to-mass ratio of the electron</a>'
-    excerpt: '**Rapid Communication** <br> *Author*: Justin Wheeler'
-  - image_path: /assets/images/CMB.png
+    title: 'A sample article'
+    excerpt: 'Markdown **allowed**'
+  - image_path: /assets/images/Sampleimage.png
     alt: "Cosmic Microwave Background"
-    title: '<a href="/vol1-1/PIP-412007OA042/">An undergraduate review of general relativity and cosmology</a>'
-    excerpt: '**Original Article** <br> *Author*: Andrew Valentini'
-  - image_path: /assets/images/electroncharge.png
+    title: 'An example article'
+    excerpt: 'Some stuff goes in here'
+  - image_path: /assets/images/Exampleimage.png
     alt: "Discrete Electron Charge"
-    title: '<a href="/vol1-1/PIP-412015RC038/">Measuring the charge of an electron from the Millikan oil drop experiment</a>'
-    excerpt: '**Rapid Communication** <br> *Author*: Kassia Schraufnagel'
+    title: 'Example title goes here'
+    excerpt: 'This is a paper!'
 ---
 
 {% include feature_row id="feature_row" type="right"%}

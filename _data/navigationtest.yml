@@ -12,34 +12,18 @@ main:
   - title: "Recent"
     url: /vol1-1/index/
     sublinks:
-      - title: "Historic electron measurements"
-        url: "/vol1-1/historic-electron-measurements/"
-      - title: "Waves and Optics"
-        url: "/vol1-1/waves-and-optics/"
-      - title: "Mechanics"
-        url: "/vol1-1/mechanics/"
-      - title: "Quantum Phenomena"
-        url: "/vol1-1/quantum-phenomena/"
-      - title: "Aerospace Sciences"
-        url: "/vol1-1/aerospace-sciences/"
-      - title: "Astronomy and Astrophysics"
-        url: "/vol1-1/astronomy-and-astrophysics/"
+      - title: "Examples"
+        url: "/vol1-1/examples/"
+      - title: "Samples"
+        url: "/vol1-1/samples/"
 issuecol:
   - title: Collections in this issue
     url: /vol1-1/index/
     children:
-      - title: "Historic electron measurements"
-        url: "/vol1-1/historic-electron-measurements/"
-      - title: "Waves and Optics"
-        url: "/vol1-1/waves-and-optics/"
-      - title: "Mechanics"
-        url: "/vol1-1/mechanics/"
-      - title: "Quantum Phenomena"
-        url: "/vol1-1/quantum-phenomena/"
-      - title: "Aerospace Sciences"
-        url: "/vol1-1/aerospace-sciences/"
-      - title: "Astronomy and Astrophysics"
-        url: "/vol1-1/astronomy-and-astrophysics/"
+      - title: "Examples"
+        url: "/vol1-1/examples/"
+      - title: "Samples"
+        url: "/vol1-1/samples/"
 about:
   - title: "About <i>Physics in Progress</i>"
     url: /about/
