@@ -2,19 +2,19 @@
 layout: article
 classes: wide
 author_profile: true
-title: "{{Title}}"
+title: "{{!Title}}"
 header:
   overlay_filter: rgba(122,35,47,.8)
   overlay_image: "/assets/images/banner.svg"
-type: {{Type}}
-date: {{Timestamp}}
-citedate: {{Submitted}}
-author: {{AuthorName}}
-section: {{Section}}
-EC: {{EC}}
+type: {{!Type}}
+date: {{!Timestamp}}
+citedate: {{!Submitted}}
+author: {{!AuthorName}}
+section: {{!Section}}
+EC: {{!EC}}
 categories:
-  - {{Section}}
-abstract: '{{Abstract}}'
-pdfpermalink: "/assets{{PDF}}.pdf"
-citepermalink: "/assets{{Bib}}.bib"
+  - {{!Section}}
+abstract: '{{!Abstract}}'
+pdfpermalink: "/assets{{!PDF}}.pdf"
+citepermalink: "/assets{{!Bib}}.bib"
 ---

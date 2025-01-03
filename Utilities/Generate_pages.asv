@@ -1,15 +1,101 @@
 clear
-tab = readtable("Manuscripts.csv");
-tab.Submitted.Format = 'default';
-tab.Timestamp.Format = 'default';
 
+% Used to generate paths
 volume = 1;
 issue = 1;
 
-generateAuthors(tab);
+manuscript_csv      = "Manuscripts.csv"; % relative path to manuscript info
+issue_csv           = "Issue.csv"; % relative path to section info
+article_template    = "template"; % relative path to manuscript template
+collection_template = "template_collection"; % relative path to section template
+sections_YAML       = "../_data/sections.yml";
+nav_YAML            = "../_data/navigation.yml";
 
-template = readlines("template");
+% Path that will be used to generate files
+volpath = "/vol"+string(volume)+"-"+string(issue)+"/";
+colpath = "/_vol"+string(volume)+"-"+string(issue)+"/";
 
+% Read the data
+mantab = readtable(manuscript_csv);
+issuetab = readtable(issue_csv);
+
+% Correct the datetime google forms -> jekyll format
+mantab.Submitted.Format = 'yyyy-MM-dd';
+mantab.Timestamp.Format = 'yyyy-MM-dd';
+
+% Add some post-processed columns
+mantab.PDF = volpath+string(mantab.PDF);
+mantab.Bib = volpath+string(mantab.Bib);
+slugify = @(str) regexprep(lower(string(str)),'[^a-zA-Z0-9]','-');
+issuetab.Permalink = volpath + slugify(string(issuetab.Section))+"/";
+issuetab.NextLink = circshift(issuetab.Permalink,-1);
+issuetab.PrevLink = circshift(issuetab.Permalink,1);
+issuetab.HomeLink = volpath+"index/";
+issuetab.PrevClass = "btn--primary";
+issuetab.NextClass = "btn--primary";
+issuetab(1,"PrevLink") = "";
+issuetab(end,"NextLink") = "";
+issuetab(1,"PrevClass") = "btn--light-outline";
+issuetab(end,"NextLink") = "btn--light-outline";
+
+return
+
+generateAuthors(mantab,colpath);
+
+generateArticles(mantab,article_template);
+
+% Update the sections.yaml
+generateSectionsYAML(issuetab,sections_YAML);
+
+% Update the navigation yaml
+generateNavYAML(issuetab,nav_YAML,volpath);
+
+function [] = generateNavYAML(issuetab,filename,volpath)
+navhead = "# main links\nmain:\n  - title: ""Highlights""\n    url: /vol1-1/highlights/\n  - title: ""About""\n    url: /about/\n    sublinks: \n     - title: ""Information for Authors""\n       url: /authors/\n     - title: ""Submissions""\n       url: /submissions/\n  - title: ""Recent""\n";
+
+f = fopen(filename,'w');
+fprintf(f,navhead);
+fprintf(f,"    url: "+volpath+"index/\n");
+fprintf(f,"    sublinks:\n");
+for i = 1:height(issuetab)
+    row = issuetab(i,:);
+    fprintf(f,"      - title: ""%s""\n",string(row.Section));
+    fprintf(f,"        url: ""%s""\n",string(row.Permalink));
+end
+fprintf(f,"issuecol:\n  - title: Collections in this issue\n");
+fprintf(f,"    url: "+volpath+"index/\n");
+fprintf(f,"    children:\n");
+for i = 1:height(issuetab)
+    row = issuetab(i,:);
+    fprintf(f,"      - title: ""%s""\n",string(row.Section));
+    fprintf(f,"        url: ""%s""\n",string(row.Permalink));
+end
+fprintf(f,"about:\n  - title: ""About <i>Physics in Progress</i>""\n    url: /about/\n    children:\n      - title: ""Information for authors""\n        url: /authors/\n      - title: Submissions\n        url: /submissions/ ");
+fclose(f);
+end
+
+function [] = generateSectionsYAML(issuetab,filename)
+f = fopen(filename,'w');
+for i = 1:height(issuetab)
+    row = issuetab(i,:);
+    row.Excerpt = replace(row.Excerpt,"'","''");
+    fprintf(f,"%s:\n", string(row.Section));
+    fprintf(f,"  label: ""%s""\n", string(row.Section));
+    fprintf(f,"  excerpt: '%s'\n", string(row.Excerpt));
+
+    fprintf(f,"  url: ""%s""\n", row.Permalink);
+    fprintf(f,"  btn_label: ""Explore this collection""\n");
+    fprintf(f,"  btn_class: ""btn--primary""\n");
+    fprintf(f,"  image_path: ""/assets/images/%s""\n", string(row.ImageName));
+    fprintf(f,"  alt: ""%s""\n", string(row.Alt));
+    
+end
+fclose(f);
+end
+
+function [] = generateArticles(tab,template_filename)
+
+template = readlines(template_filename);
 for i = 1:height(tab)
     row = tab(i,:);
     
@@ -19,19 +105,22 @@ for i = 1:height(tab)
         row.Type = "Rapid Communication";
     end
 
-    f = fopen(string(row.ManuscriptID)+".md",'w');
+    f = fopen(path+string(row.ManuscriptID)+".md",'w');
 
-    pat = "{{" + lettersPattern + "}}";
+    pat = "{{!" + lettersPattern + "}}";
     for i = 1:numel(template)
         line = template(i);
         variable = extract(line,pat);
         if ~isempty(variable)
-            variable = erase(variable,["{","}"]);
+            variable = erase(variable,["{","}","!"]);
             value = string(row{1,variable});
             if strcmp(variable,"Title")
                 value = replace(value,"""","""""");
+            elseif strcmp(variable,"Abstract")
+                value = replace(value,'''','''''');
             end
-            value = replace(value,"\","\")
+            value = replace(value,"%","%%");
+            value = replace(value,"\","\\");
             line = replace(line,pat,value);
         end
         fprintf(f,line+"\n");
@@ -39,32 +128,7 @@ for i = 1:height(tab)
     end
 
     fclose(f);
-    % 
-    % row.Title = replace(row.Title,"'","''");
-    % row.Abstract = replace(row.Abstract,"'","''");
-    % 
-    % fprintf(f,"---\nlayout: scholar\n");
-    % fprintf(f,"title: ""%s""\n",string(row.Title));
-    % fprintf(f,"abstract: '%s'\n",string(row.Abstract));
-    % fprintf(f,"authors:\n - ""%s""\n", string(row.AuthorName));
-    % fprintf(f,"volume: %d\n", volume);
-    % fprintf(f,"issue: %d\n", issue);
-    % fprintf(f,"firstpage: %d\n", i);
-    % fprintf(f,"lastpage: %d\n", i+1);
-    % if contains(string(row.ShortID),"OA")
-    %     fprintf(f,"type: ""Original Article""\n");
-    % else
-    %     fprintf(f,"type: ""Rapid Communication""\n");
-    % end
-    % fprintf(f,"pdfpermalink: ""temp.pdf""\n");
-    % fprintf(f,"citedate: %s\n", string(row.Submitted));
-    % fprintf(f,"date: %s\n", string(row.Timestamp));
-    % 
-    % 
-    % fprintf(f,"---\n");
-    % 
-    % fclose(f);
-    % % break
+end
 end
 
 function [] = generateAuthors(tab)

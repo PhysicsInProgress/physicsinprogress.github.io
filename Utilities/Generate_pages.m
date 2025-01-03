@@ -6,13 +6,16 @@ issue = 1;
 
 manuscript_csv      = "Manuscripts.csv"; % relative path to manuscript info
 issue_csv           = "Issue.csv"; % relative path to section info
-article_template    = "../../Utilities/template"; % relative path to manuscript template
-collection_template = "../../Utilities/template_collection"; % relative path to section template
+article_template    = "template"; % relative path to manuscript template
+collection_template = "template_collection"; % relative path to section template
 sections_YAML       = "../_data/sections.yml";
 nav_YAML            = "../_data/navigation.yml";
 
 % Path that will be used to generate files
 volpath = "/vol"+string(volume)+"-"+string(issue)+"/";
+colpath = "../_vol"+string(volume)+"_"+string(issue)+"/";
+pagepath = "../_pages/";
+
 
 % Read the data
 mantab = readtable(manuscript_csv);
@@ -26,18 +29,31 @@ mantab.Timestamp.Format = 'yyyy-MM-dd';
 mantab.PDF = volpath+string(mantab.PDF);
 mantab.Bib = volpath+string(mantab.Bib);
 slugify = @(str) regexprep(lower(string(str)),'[^a-zA-Z0-9]','-');
+issuetab.name = slugf
 issuetab.Permalink = volpath + slugify(string(issuetab.Section))+"/";
+issuetab.NextLink = circshift(issuetab.Permalink,-1);
+issuetab.PrevLink = circshift(issuetab.Permalink,1);
+issuetab.HomeLink = repmat(volpath+"index/",height(issuetab),1);
+issuetab.PrevClass = repmat("btn--primary",height(issuetab),1);
+issuetab.NextClass = repmat("btn--primary",height(issuetab),1);
+issuetab{1,"PrevLink"} = "";
+issuetab{end,"NextLink"} = "";
+issuetab{1,"PrevClass"} = "btn--light-outline";
+issuetab{end,"NextLink"} = "btn--light-outline";
 
 
 generateAuthors(mantab);
 
-generateArticles(mantab,article_template);
+generateArticles(mantab,article_template,colpath);
 
 % Update the sections.yaml
 generateSectionsYAML(issuetab,sections_YAML);
 
 % Update the navigation yaml
 generateNavYAML(issuetab,nav_YAML,volpath);
+
+% Update the collections pages
+generateCollections(issuetab,nav_YAML,pagepath);
 
 function [] = generateNavYAML(issuetab,filename,volpath)
 navhead = "# main links\nmain:\n  - title: ""Highlights""\n    url: /vol1-1/highlights/\n  - title: ""About""\n    url: /about/\n    sublinks: \n     - title: ""Information for Authors""\n       url: /authors/\n     - title: ""Submissions""\n       url: /submissions/\n  - title: ""Recent""\n";
@@ -82,13 +98,9 @@ end
 fclose(f);
 end
 
-function [] = generateArticles(tab,template_filename)
+function [] = generateArticles(tab,template_filename,path)
 
 template = readlines(template_filename);
-
-
-
-
 for i = 1:height(tab)
     row = tab(i,:);
     
@@ -98,14 +110,47 @@ for i = 1:height(tab)
         row.Type = "Rapid Communication";
     end
 
-    f = fopen(string(row.ManuscriptID)+".md",'w');
+    f = fopen(path+string(row.ManuscriptID)+".md",'w');
 
-    pat = "{{" + lettersPattern + "}}";
+    pat = "{{!" + lettersPattern + "}}";
     for i = 1:numel(template)
         line = template(i);
         variable = extract(line,pat);
         if ~isempty(variable)
-            variable = erase(variable,["{","}"]);
+            variable = erase(variable,["{","}","!"]);
+            value = string(row{1,variable});
+            if strcmp(variable,"Title")
+                value = replace(value,"""","""""");
+            elseif strcmp(variable,"Abstract")
+                value = replace(value,'''','''''');
+            end
+            value = replace(value,"%","%%");
+            value = replace(value,"\","\\");
+            line = replace(line,pat,value);
+        end
+        fprintf(f,line+"\n");
+        thing = 1;
+    end
+
+    fclose(f);
+end
+end
+
+function [] = generateCollections(tab,template_filename,path)
+
+template = readlines(template_filename);
+for i = 1:height(tab)
+    row = tab(i,:);
+    
+
+    f = fopen(path+string(row.Section)+".md",'w');
+
+    pat = "{{!" + lettersPattern + "}}";
+    for i = 1:numel(template)
+        line = template(i);
+        variable = extract(line,pat);
+        if ~isempty(variable)
+            variable = erase(variable,["{","}","!"]);
             value = string(row{1,variable});
             if strcmp(variable,"Title")
                 value = replace(value,"""","""""");
