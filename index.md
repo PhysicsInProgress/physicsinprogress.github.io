@@ -8,7 +8,7 @@ header:
   overlay_filter: rgba(122,35,47,.8)
   title: "A journal for <i>physicists</i> still in progress"
   overlay_image: "/assets/images/banner.svg"
-  image: /assets/images/rubensfeature.jpeg
+  image: /assets/images/rubensFeature.jpeg
   actions:
     - label: "Learn More"
       url: "/about/"
@@ -54,7 +54,7 @@ feature_row4:
     url: "#test-link"
     btn_label: "Read More"
     btn_class: "btn--primary"
-  - image_path: /assets/images/mechanicshead.png
+  - image_path: /assets/images/Mechanicshead.png
     alt: "eoverm apparatus"
     title: 'Mechanics'
     excerpt: 'Featuring two contributions analyzing the period of pendulums.'
