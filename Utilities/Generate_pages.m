@@ -7,13 +7,14 @@ issue = 1;
 manuscript_csv      = "Manuscripts.csv"; % relative path to manuscript info
 issue_csv           = "Issue.csv"; % relative path to section info
 article_template    = "template"; % relative path to manuscript template
-collection_template = "template_collection"; % relative path to section template
+collection_template = "template_collection.html"; % relative path to section template
 sections_YAML       = "../_data/sections.yml";
-nav_YAML            = "../_data/navigation.yml";
+nav_YAML            = "../_data/navigationtest.yml";
 
 % Path that will be used to generate files
-volpath = "/vol"+string(volume)+"-"+string(issue)+"/";
-colpath = "../_vol"+string(volume)+"_"+string(issue)+"/";
+issuestr = "vol"+string(volume)+"-"+string(issue);
+volpath = "/"+issuestr+"/";
+colpath = "../_"+issuestr+"/";
 pagepath = "../_pages/";
 
 
@@ -26,20 +27,13 @@ mantab.Submitted.Format = 'yyyy-MM-dd';
 mantab.Timestamp.Format = 'yyyy-MM-dd';
 
 % Add some post-processed columns
+mantab.AuthorName = strip(join([mantab.AuthorFirst,mantab.AuthorLast,mantab.AuthorSuffix]," ",2));
 mantab.PDF = volpath+string(mantab.PDF);
 mantab.Bib = volpath+string(mantab.Bib);
 slugify = @(str) regexprep(lower(string(str)),'[^a-zA-Z0-9]','-');
-issuetab.name = slugf
+assigntab = @(str) repmat(str,height(issuetab),1);
 issuetab.Permalink = volpath + slugify(string(issuetab.Section))+"/";
-issuetab.NextLink = circshift(issuetab.Permalink,-1);
-issuetab.PrevLink = circshift(issuetab.Permalink,1);
-issuetab.HomeLink = repmat(volpath+"index/",height(issuetab),1);
-issuetab.PrevClass = repmat("btn--primary",height(issuetab),1);
-issuetab.NextClass = repmat("btn--primary",height(issuetab),1);
-issuetab{1,"PrevLink"} = "";
-issuetab{end,"NextLink"} = "";
-issuetab{1,"PrevClass"} = "btn--light-outline";
-issuetab{end,"NextLink"} = "btn--light-outline";
+issuetab.Issue = assigntab(issuestr);
 
 
 generateAuthors(mantab);
@@ -49,11 +43,12 @@ generateArticles(mantab,article_template,colpath);
 % Update the sections.yaml
 generateSectionsYAML(issuetab,sections_YAML);
 
+
 % Update the navigation yaml
 generateNavYAML(issuetab,nav_YAML,volpath);
 
 % Update the collections pages
-generateCollections(issuetab,nav_YAML,pagepath);
+generateCollections(issuetab,collection_template,pagepath);
 
 function [] = generateNavYAML(issuetab,filename,volpath)
 navhead = "# main links\nmain:\n  - title: ""Highlights""\n    url: /vol1-1/highlights/\n  - title: ""About""\n    url: /about/\n    sublinks: \n     - title: ""Information for Authors""\n       url: /authors/\n     - title: ""Submissions""\n       url: /submissions/\n  - title: ""Recent""\n";
@@ -81,18 +76,20 @@ end
 
 function [] = generateSectionsYAML(issuetab,filename)
 f = fopen(filename,'w');
+
+fprintf(f,"%s:\n",issuetab.Issue(1));
 for i = 1:height(issuetab)
     row = issuetab(i,:);
     row.Excerpt = replace(row.Excerpt,"'","''");
-    fprintf(f,"%s:\n", string(row.Section));
-    fprintf(f,"  label: ""%s""\n", string(row.Section));
-    fprintf(f,"  excerpt: '%s'\n", string(row.Excerpt));
+    fprintf(f,"  - %s:\n", string(row.Section));
+    fprintf(f,"    label: ""%s""\n", string(row.Section));
+    fprintf(f,"    excerpt: '%s'\n", string(row.Excerpt));
 
-    fprintf(f,"  url: ""%s""\n", row.Permalink);
-    fprintf(f,"  btn_label: ""Explore this collection""\n");
-    fprintf(f,"  btn_class: ""btn--primary""\n");
-    fprintf(f,"  image_path: ""/assets/images/%s""\n", string(row.ImageName));
-    fprintf(f,"  alt: ""%s""\n", string(row.Alt));
+    fprintf(f,"    url: ""%s""\n", row.Permalink);  
+    fprintf(f,"    btn_label: ""Explore this collection""\n");
+    fprintf(f,"    btn_class: ""btn--primary""\n");
+    fprintf(f,"    image_path: ""/assets/images/%s""\n", string(row.ImageName));
+    fprintf(f,"    alt: ""%s""\n", string(row.Alt));
     
 end
 fclose(f);
@@ -101,6 +98,11 @@ end
 function [] = generateArticles(tab,template_filename,path)
 
 template = readlines(template_filename);
+
+while ~strcmp(template(1),"---")
+    template(1) = [];
+end
+
 for i = 1:height(tab)
     row = tab(i,:);
     
@@ -138,12 +140,18 @@ end
 
 function [] = generateCollections(tab,template_filename,path)
 
+slugify = @(str) regexprep(lower(string(str)),'[^a-zA-Z0-9]','-');
 template = readlines(template_filename);
+
+while ~strcmp(template(1),"---")
+    template(1) = [];
+end
+
 for i = 1:height(tab)
     row = tab(i,:);
     
 
-    f = fopen(path+string(row.Section)+".md",'w');
+    f = fopen(path+slugify(string(row.Section))+".html",'w');
 
     pat = "{{!" + lettersPattern + "}}";
     for i = 1:numel(template)
@@ -161,6 +169,9 @@ for i = 1:height(tab)
             value = replace(value,"\","\\");
             line = replace(line,pat,value);
         end
+
+        line = replace(line,"%","%%");
+        line = replace(line,"\","\\");
         fprintf(f,line+"\n");
         thing = 1;
     end
@@ -180,6 +191,9 @@ for i = 1:height(authtab)
     row.Affiliation = replace(string(row.Affiliation),"2001","<br>2001");
     fprintf(authfile,"%s: \n",string(row.AuthorName));
     fprintf(authfile,"  name        : ""%s"" \n", string(row.AuthorName));
+    fprintf(authfile,"  first       : ""%s""\n", string(row.AuthorFirst));
+    fprintf(authfile,"  last        : ""%s""\n", string(row.AuthorLast));
+    fprintf(authfile,"  suffix      : ""%s""\n", string(row.AuthorSuffix));
     fprintf(authfile,"  bio         : ""%s"" \n", string(row.Affiliation));
     fprintf(authfile,"  links: \n    - label: ""Email""\n      icon: ""fas fa-fw fa-envelope-square"" \n");
     fprintf(authfile,"      url: ""mailto:%s"" \n",string(row.EmailAddress));

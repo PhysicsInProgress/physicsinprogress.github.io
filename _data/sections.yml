@@ -1,48 +1,49 @@
-Historic electron measurements:
-  label: "Historic electron measurements"
-  excerpt: 'Recreating physics history with Thomson''s experiment measuring the charge-to mass ratio of the electron and Millikan''s oil drop experiment.'
-  url: "/vol1-1/historic-electron-measurements/"
-  btn_label: "Explore this collection"
-  btn_class: "btn--primary"
-  image_path: "/assets/images/electroncollection.jpg"
-  alt: "Electron Beam"
-Waves and Optics:
-  label: "Waves and Optics"
-  excerpt: 'Featuring a variety of experiments regarding microwave interferometry, waveguides, and standing sound waves.'
-  url: "/vol1-1/waves-and-optics/"
-  btn_label: "Explore this collection"
-  btn_class: "btn--primary"
-  image_path: "/assets/images/wavesandopticshead.png"
-  alt: "Rubens Tube"
-Mechanics:
-  label: "Mechanics"
-  excerpt: 'Featuring two contributions analyzing the period of pendulums.'
-  url: "/vol1-1/mechanics/"
-  btn_label: "Explore this collection"
-  btn_class: "btn--primary"
-  image_path: "/assets/images/Mechanicshead.png"
-  alt: "A figure of pendulum periods"
-Quantum Phenomena:
-  label: "Quantum Phenomena"
-  excerpt: 'Two rapid communications analyzing the photoelectric effect and radioactive decay as well as an original article on quantum computing.'
-  url: "/vol1-1/quantum-phenomena/"
-  btn_label: "Explore this collection"
-  btn_class: "btn--primary"
-  image_path: "/assets/images/Quantumhead.png"
-  alt: "Bloch Sphere"
-Aerospace Sciences:
-  label: "Aerospace Sciences"
-  excerpt: 'Two articles presenting original research in propellant gauging, and an overview of major topics in aerospace engineering.'
-  url: "/vol1-1/aerospace-sciences/"
-  btn_label: "Explore this collection"
-  btn_class: "btn--primary"
-  image_path: "/assets/images/Aerospacehead.png"
-  alt: "PROTO project"
-Astronomy and Astrophysics:
-  label: "Astronomy and Astrophysics"
-  excerpt: 'Featuring three original articles on general relativity and current topics of interest in cosmology.'
-  url: "/vol1-1/astronomy-and-astrophysics/"
-  btn_label: "Explore this collection"
-  btn_class: "btn--primary"
-  image_path: "/assets/images/CMB.png"
-  alt: "Cosmic microwave background"
+vol1-1:
+  - Historic electron measurements:
+    label: "Historic electron measurements"
+    excerpt: 'Recreating physics history with Thomson''s experiment measuring the charge-to mass ratio of the electron and Millikan''s oil drop experiment.'
+    url: "/vol1-1/historic-electron-measurements/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/electroncollection.jpg"
+    alt: "Electron Beam"
+  - Waves and Optics:
+    label: "Waves and Optics"
+    excerpt: 'Featuring a variety of experiments regarding microwave interferometry, waveguides, and standing sound waves.'
+    url: "/vol1-1/waves-and-optics/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/wavesandopticshead.png"
+    alt: "Rubens Tube"
+  - Mechanics:
+    label: "Mechanics"
+    excerpt: 'Featuring two contributions analyzing the period of pendulums.'
+    url: "/vol1-1/mechanics/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/Mechanicshead.png"
+    alt: "A figure of pendulum periods"
+  - Quantum Phenomena:
+    label: "Quantum Phenomena"
+    excerpt: 'Two rapid communications analyzing the photoelectric effect and radioactive decay as well as an original article on quantum computing.'
+    url: "/vol1-1/quantum-phenomena/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/Quantumhead.png"
+    alt: "Bloch Sphere"
+  - Aerospace Sciences:
+    label: "Aerospace Sciences"
+    excerpt: 'Two articles presenting original research in propellant gauging, and an overview of major topics in aerospace engineering.'
+    url: "/vol1-1/aerospace-sciences/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/Aerospacehead.png"
+    alt: "PROTO project"
+  - Astronomy and Astrophysics:
+    label: "Astronomy and Astrophysics"
+    excerpt: 'Featuring three original articles on general relativity and current topics of interest in cosmology.'
+    url: "/vol1-1/astronomy-and-astrophysics/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/CMB.png"
+    alt: "Cosmic microwave background"

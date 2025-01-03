@@ -1,3 +1,4 @@
+This is so Jekyll disregards this file
 ---
 layout: article
 classes: wide
@@ -15,6 +16,8 @@ EC: {{!EC}}
 categories:
   - {{!Section}}
 abstract: '{{!Abstract}}'
+firstpage: 1
+lastpage: 34
 pdfpermalink: "/assets{{!PDF}}.pdf"
 citepermalink: "/assets{{!Bib}}.bib"
 ---

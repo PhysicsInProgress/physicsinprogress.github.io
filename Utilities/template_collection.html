@@ -1,0 +1,84 @@
+This is so Jekyll disregards this file
+---
+layout: single
+classes: wide
+issue: {{!Issue}}
+seclabel: "{{!Section}}"
+permalink: "{{!Permalink}}"
+title: "{{!Section}}"
+tagline: "From **Volume 1**, Issue 1 (January 2024)."
+header:
+  overlay_filter: rgba(122,35,47,.8)
+  overlay_image: "/assets/images/banner.svg"
+  image: "/assets/images/{{!ImageName}}"
+  actions:
+    - label: "Return to Issue"
+      url: "/{{!Issue}}/index/"
+sidebar:
+  - title: "Physics in Progress"
+    image: "/assets/images/RubensFeature.jpeg"
+    image_alt: "image"
+    text: "**Volume 1**<br>Issue 1<br>January 2024."
+    nav: "issuecol"
+---
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+
+{% assign f = site.data.sections[page.issue] | where: "label",page.seclabel | first%}
+
+{% assign groups = site[page.issue] | group_by: "section" | sort: "name" %}
+
+{% assign sec = groups | where: "name",f.label | first %}
+
+
+<div class="section_one_tone">
+<h1 id="{{f.label | slugify}}"> {{f.label}} </h1>
+<p> {{f.excerpt}} </p>
+	{% for thing in sec.items %}
+		{% assign post = thing %}
+		{% include article_feature.html  color="one" %}
+	{% endfor %}
+</div>
+
+
+
+
+
+
+
+{% capture issuelink %}/{{page.issue}}/index/{% endcapture %}
+{% capture issueurl %}{{section.}}{% endcapture %}
+{% for section in site.data.sections[{{page.issue}}]%}
+	{% if currentlabel %} {% unless nextlabel %}
+		{% capture nextlabel %}{{section.label}}{% endcapture %}
+		{% capture nextlink %}{{section.url}}{% endcapture %}
+		{%assign nextclass = "btn--primary"%}
+	{% endunless %} {% endif %}
+	
+	{% if section.label == page.seclabel %}
+		{% capture currentlabel %}{{section.label}}{% endcapture %}
+		{% capture currenttlink %}{{section.url}}{% endcapture %}
+	{% endif %}
+	
+	{% unless currentlabel %}
+		{% capture prevlabel %}{{section.label}}{% endcapture %}
+		{% capture prevlink %}{{section.url}}{% endcapture %}
+		{%assign prevclass = "btn--primary"%}
+	{% endunless%}
+	
+{% endfor %}
+
+
+<p align="center">
+	<a href="{{prevlink | default:issuelink}}" class="btn {{prevclass | default: "btn--light-outline"}} btn--large"> 
+		&larr;
+	</a>
+	&nbsp;
+	<a href="{{issuelink}}" class="btn btn--inverse btn--large"> 
+		Return to issue
+	</a>
+	&nbsp;
+	<a href="{{nextlink}}" class="btn {{nextclass | default: "btn--light-outline"}} btn--large"> 
+		&rarr;
+	</a> 
+</p>

@@ -1,15 +1,15 @@
 ---
 layout: single
-title: "Most recent issue"
+classes: wide
+permalink: "/vol1-1/highlights/"
+title: "Phys. in Prog. | Highlights"
+tagline: "Highlighting excellence in technical writing at the undergraduate level."
+EC: TRUE
+issue: "vol1-1"
 header:
+  title: "Editor's Suggestions from the latest issue"
   overlay_filter: rgba(122,35,47,.8)
   overlay_image: "/assets/images/banner.svg"
-tagline: "<i>Physics in Progress</i> Volume 1, Issue 1"
-permalink: /vol1-1/index/
-author_profile: false
-toc: true
-issue: vol1-1
-toc_sticky: true
 sidebar:
   - title: "Physics in Progress"
     image: "/assets/images/RubensFeature.jpeg"
@@ -18,7 +18,8 @@ sidebar:
     nav: "issuecol"
 ---
 
-{% assign groups = site[page.issue] | group_by: "section" | sort: "name"%}
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+{% assign groups = site[page.issue] | where: "EC",page.EC |group_by: "section" | sort: "name" %}
 
 {% for f in site.data.sections[page.issue] %}
 	{% assign sec = groups | where: "name",f.label %}
@@ -29,18 +30,15 @@ sidebar:
 
 		<div class="section_{{colorstring | strip}}_tone">
 		<h1 id="{{f.label | slugify}}"> {{f.label}} </h1>
-		{% include feature_single.html type="left"%}	
+		<p> {{f.excerpt}} </p>
 			{% for page in cat.items %}
 				{% assign post = page %}
 				
 				
-				{% include article_archive.html color=colorstring%}
+				{% include article_feature.html  color=colorstring %}
 			{% endfor %}
 		</div>
-
 	
 	{% endunless%}
 	
 {% endfor %}
-		
-

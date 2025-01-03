@@ -219,8 +219,10 @@ body {
 		}
 
 		.page__hero-imagewrap {
-			max-width: 5in;
+			max-width: 4in;
 			min-width: 1.5in;
+			background-color: #fff;
+			border-radius: 10px;
 			flex: 1 1 40%;
 		}
 		
@@ -252,6 +254,7 @@ body {
   width: 100%;
   height: auto;
   -ms-interpolation-mode: bicubic;
+  border-radius: 7px;
 }
 
 .page__hero-caption {

@@ -1,0 +1,15 @@
+<meta name="citation_title" content="{{page.title}}">
+{% assign authorCount = page.authors | size %}
+{% unless authorCount == 0 %}
+	{% for author in page.authors %}
+		{% assign authordata = site.data.authors[author] %}
+		<meta name="citation_author" content="{{authordata.last}}, {{authordata.first}}">
+	{% endfor %}
+{% endunless %}
+<meta name="citation_publication_date" content="{{page.citedate | date: "%Y/%m/%d"}}">
+<meta name="citation_journal_title" content="Physics in Progress">
+<meta name="citation_volume" content="{{page.volume}}">
+<meta name="citation_issue" content="{{page.issue}}">
+<meta name="citation_firstpage" content="{{page.firstpage}}">
+<meta name="citation_lastpage" content="{{page.lastpage}}">
+<meta name="citation_pdf_url" content="{{site.url}}/{{page.pdfpermalink}}">

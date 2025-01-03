@@ -7,13 +7,16 @@ issue = 1;
 manuscript_csv      = "Manuscripts.csv"; % relative path to manuscript info
 issue_csv           = "Issue.csv"; % relative path to section info
 article_template    = "template"; % relative path to manuscript template
-collection_template = "template_collection"; % relative path to section template
+collection_template = "template_collection.html"; % relative path to section template
 sections_YAML       = "../_data/sections.yml";
-nav_YAML            = "../_data/navigation.yml";
+nav_YAML            = "../_data/navigationtest.yml";
 
 % Path that will be used to generate files
-volpath = "/vol"+string(volume)+"-"+string(issue)+"/";
-colpath = "/_vol"+string(volume)+"-"+string(issue)+"/";
+issuestr = "vol"+string(volume)+"-"+string(issue);
+volpath = "/"+issuestr+"/";
+colpath = "../_"+issuestr+"/";
+pagepath = "../_pages/";
+
 
 % Read the data
 mantab = readtable(manuscript_csv);
@@ -27,28 +30,24 @@ mantab.Timestamp.Format = 'yyyy-MM-dd';
 mantab.PDF = volpath+string(mantab.PDF);
 mantab.Bib = volpath+string(mantab.Bib);
 slugify = @(str) regexprep(lower(string(str)),'[^a-zA-Z0-9]','-');
+assigntab = @(str) repmat(str,height(issuetab),1);
 issuetab.Permalink = volpath + slugify(string(issuetab.Section))+"/";
-issuetab.NextLink = circshift(issuetab.Permalink,-1);
-issuetab.PrevLink = circshift(issuetab.Permalink,1);
-issuetab.HomeLink = volpath+"index/";
-issuetab.PrevClass = "btn--primary";
-issuetab.NextClass = "btn--primary";
-issuetab(1,"PrevLink") = "";
-issuetab(end,"NextLink") = "";
-issuetab(1,"PrevClass") = "btn--light-outline";
-issuetab(end,"NextLink") = "btn--light-outline";
+issuetab.Issue = assigntab(issuestr);
 
-return
 
-generateAuthors(mantab,colpath);
+generateAuthors(mantab);
 
-generateArticles(mantab,article_template);
+generateArticles(mantab,article_template,colpath);
 
 % Update the sections.yaml
 generateSectionsYAML(issuetab,sections_YAML);
 
+
 % Update the navigation yaml
 generateNavYAML(issuetab,nav_YAML,volpath);
+
+% Update the collections pages
+generateCollections(issuetab,,pagepath);
 
 function [] = generateNavYAML(issuetab,filename,volpath)
 navhead = "# main links\nmain:\n  - title: ""Highlights""\n    url: /vol1-1/highlights/\n  - title: ""About""\n    url: /about/\n    sublinks: \n     - title: ""Information for Authors""\n       url: /authors/\n     - title: ""Submissions""\n       url: /submissions/\n  - title: ""Recent""\n";
@@ -76,26 +75,33 @@ end
 
 function [] = generateSectionsYAML(issuetab,filename)
 f = fopen(filename,'w');
+
+fprintf(f,"%s:\n",issuetab.Issue(1));
 for i = 1:height(issuetab)
     row = issuetab(i,:);
     row.Excerpt = replace(row.Excerpt,"'","''");
-    fprintf(f,"%s:\n", string(row.Section));
-    fprintf(f,"  label: ""%s""\n", string(row.Section));
-    fprintf(f,"  excerpt: '%s'\n", string(row.Excerpt));
+    fprintf(f,"  - %s:\n", string(row.Section));
+    fprintf(f,"    label: ""%s""\n", string(row.Section));
+    fprintf(f,"    excerpt: '%s'\n", string(row.Excerpt));
 
-    fprintf(f,"  url: ""%s""\n", row.Permalink);
-    fprintf(f,"  btn_label: ""Explore this collection""\n");
-    fprintf(f,"  btn_class: ""btn--primary""\n");
-    fprintf(f,"  image_path: ""/assets/images/%s""\n", string(row.ImageName));
-    fprintf(f,"  alt: ""%s""\n", string(row.Alt));
+    fprintf(f,"    url: ""%s""\n", row.Permalink);  
+    fprintf(f,"    btn_label: ""Explore this collection""\n");
+    fprintf(f,"    btn_class: ""btn--primary""\n");
+    fprintf(f,"    image_path: ""/assets/images/%s""\n", string(row.ImageName));
+    fprintf(f,"    alt: ""%s""\n", string(row.Alt));
     
 end
 fclose(f);
 end
 
-function [] = generateArticles(tab,template_filename)
+function [] = generateArticles(tab,template_filename,path)
 
 template = readlines(template_filename);
+
+while ~strcmp(template(1),"---")
+    template(1) = [];
+end
+
 for i = 1:height(tab)
     row = tab(i,:);
     
@@ -106,6 +112,45 @@ for i = 1:height(tab)
     end
 
     f = fopen(path+string(row.ManuscriptID)+".md",'w');
+
+    pat = "{{!" + lettersPattern + "}}";
+    for i = 1:numel(template)
+        line = template(i);
+        variable = extract(line,pat);
+        if ~isempty(variable)
+            variable = erase(variable,["{","}","!"]);
+            value = string(row{1,variable});
+            if strcmp(variable,"Title")
+                value = replace(value,"""","""""");
+            elseif strcmp(variable,"Abstract")
+                value = replace(value,'''','''''');
+            end
+            value = replace(value,"%","%%");
+            value = replace(value,"\","\\");
+            line = replace(line,pat,value);
+        end
+        fprintf(f,line+"\n");
+        thing = 1;
+    end
+
+    fclose(f);
+end
+end
+
+function [] = generateCollections(tab,template_filename,path)
+
+slugify = @(str) regexprep(lower(string(str)),'[^a-zA-Z0-9]','-');
+template = readlines(template_filename);
+
+while ~strcmp(template(1),"---")
+    template(1) = [];
+end
+
+for i = 1:height(tab)
+    row = tab(i,:);
+    
+
+    f = fopen(path+slugify(string(row.Section))+".html",'w');
 
     pat = "{{!" + lettersPattern + "}}";
     for i = 1:numel(template)
