@@ -7,11 +7,11 @@
 
 
 <div class="archive_{{include.color | default:"one" | strip}}_tone {% if post.EC %} EC_box {% endif%}" 
-	style="display: flex;width=100%;gap:.25in;justify-content:center;">
+	style="display: flex;width=100%;gap:.25in;justify-content:center;flex-wrap:wrap;">
 <div style="flex: 0 0 1in;margin-top:-.5em">
 	<div class="bannerfull"><a href="/about/#what-is-editor-s-suggestion"><img src="/assets/images/{{imgname}}"></a></div>
 </div>
-<div style="flex: 1 0 1in;">
+<div style="flex: 1 0 1in;min-width:3in;">
 	{% include article_archive.html long="true"%} 
 </div>
 </div>
