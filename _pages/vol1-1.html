@@ -29,7 +29,7 @@ sidebar:
 
 		<div class="section_{{colorstring | strip}}_tone">
 		<h1 id="{{f.label | slugify}}"> {{f.label}} </h1>
-		{% include feature_single.html type="left"%}	
+		{% include feature_single.html type="left" class="teaser-shrink"%}	
 			{% for page in cat.items %}
 				{% assign post = page %}
 				

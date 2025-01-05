@@ -37,5 +37,5 @@ feature4:
 
 {% include feature_row id="feature3" type="right" %}
 
-{% include feature_row id="feature4" type="left" class="banner"%}
+{% include feature_row id="feature4" type="left" class="teaser-shrink"%}
 
