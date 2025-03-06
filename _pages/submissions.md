@@ -10,7 +10,7 @@ permalink: /submissions/
 # For authors
 Here is some stuff about submitting a manuscript
 <div style="display:flex;">
-<div style="flex-basis:75%;max-width: 5in; padding-top:1em;"><a href="https://docs.google.com/forms/d/e/1FAIpQLScS2J0NOWS4MgcpWDkVFqhiqEuKLjM3oDs84yCtz0qRtyAFrw/viewform?usp=dialog" class="btn btn--primary btn--large" style="width:100%; text-align:center">Submit a Manuscript</a></div>
+<div style="flex-basis:75%;max-width: 5in; padding-top:1em;"><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLScS2J0NOWS4MgcpWDkVFqhiqEuKLjM3oDs84yCtz0qRtyAFrw/viewform?usp=dialog" class="btn btn--primary btn--large" style="width:100%; text-align:center">Submit a Manuscript</a></div>
 </div>
 
 <br><br>
