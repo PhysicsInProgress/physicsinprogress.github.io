@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "Highlights"
-    url: /vol1-1/highlights/
+    url: /vol2-1/highlights/
   - title: "About"
     url: /about/
     sublinks: 
@@ -10,20 +10,12 @@ main:
      - title: "Submissions"
        url: /submissions/
   - title: "Recent"
-    url: /vol1-1/index/
+    url: /vol2-1/index/
     sublinks:
-      - title: "Historic electron measurements"
-        url: "/vol1-1/historic-electron-measurements/"
-      - title: "Waves and Optics"
-        url: "/vol1-1/waves-and-optics/"
-      - title: "Mechanics"
-        url: "/vol1-1/mechanics/"
-      - title: "Quantum Phenomena"
-        url: "/vol1-1/quantum-phenomena/"
-      - title: "Aerospace Sciences"
-        url: "/vol1-1/aerospace-sciences/"
-      - title: "Astronomy and Astrophysics"
-        url: "/vol1-1/astronomy-and-astrophysics/"
+      - title: "Volume 1 (2024)"
+        url: "/vol1-1/index/"
+      - title: "Volume 2 (2026)"
+        url: "/vol2-1/index/"
 issuecol:
   - title: Collections in this issue
     url: /vol1-1/index/
