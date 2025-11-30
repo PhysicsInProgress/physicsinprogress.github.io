@@ -8,9 +8,9 @@ header:
 permalink: /submissions/
 ---
 # For authors
-Here is some stuff about submitting a manuscript
+Click the link below to submit your manuscript.
 <div style="display:flex;">
-<div style="flex-basis:75%;max-width: 5in; padding-top:1em;"><a href="https://docs.google.com/forms/d/e/1FAIpQLScS2J0NOWS4MgcpWDkVFqhiqEuKLjM3oDs84yCtz0qRtyAFrw/viewform?usp=dialog" class="btn btn--primary btn--large" style="width:100%; text-align:center">Submit a Manuscript</a></div>
+<div style="flex-basis:75%;max-width: 5in; padding-top:1em;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdvU84foWJ3NosEtML-6y_5OTNbPgnMPvfoXOJvRDpOymR26A/viewform?usp=dialog" class="btn btn--primary btn--large" style="width:100%; text-align:center">Submit a Manuscript</a></div>
 </div>
 
 <br><br>
@@ -24,5 +24,5 @@ If you have been contacted and asked to review a manuscript for *Physics in Prog
 Thank you for your service to *Physics in Progress*.
 
 <div style="display:flex;">
-<div style="flex-basis:75%;max-width: 5in; padding-top:1em;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSccHAt0lK5572-FzksYcETgsqeAMO5FUEUg5JK01t_PZPOD0w/viewform?usp=dialog" class="btn btn--primary btn--large" style="width:100%; text-align:center">Submit a review</a></div>
+<div style="flex-basis:75%;max-width: 5in; padding-top:1em;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSfnUAGNfGkK9QlKWW5Fclh-HR8KBDf26EaRlwp0iWyrTnxWeA/viewform?usp=dialog" class="btn btn--primary btn--large" style="width:100%; text-align:center">Submit a review</a></div>
 </div>

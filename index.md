@@ -52,4 +52,4 @@ Featuring rapid communications and original articles that stand out from the cro
 
 # Collections in our latest issue
 {% assign feature_row = site.data.sections["vol1-1"] %}
-{% include feature_row assigned="true" uselabel="true" class="teaser-shrink"%}
+{% include feature_row assigned="true" uselabel="true" class="teaser-shrink" column="true"%}

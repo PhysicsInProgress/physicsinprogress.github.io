@@ -297,6 +297,10 @@
     position: absolute;
     inset: 0;
   }
+  
+  .feature-column {
+	flex-direction: column;
+  }
 
   &--left, &--right {
     position: relative;
