@@ -30,3 +30,6 @@ codekit-config.json
 .sass-cache
 _asset_bundler_cache
 _site
+
+#Other
+**/assets/vol1-1/HiddenAssets/
