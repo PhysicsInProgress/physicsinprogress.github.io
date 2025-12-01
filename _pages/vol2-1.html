@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "Most recent issue"
+title: "Upcoming Issue, 2026"
 header:
   overlay_filter: rgba(122,35,47,.8)
   overlay_image: "/assets/images/banner.svg"
@@ -8,16 +8,15 @@ tagline: "<i>Physics in Progress</i> Volume 2, Issue 1"
 permalink: /vol2-1/index/
 author_profile: false
 toc: true
-issue: vol1-1
+issue: vol2-1
 toc_sticky: true
 sidebar:
   - title: "Physics in Progress"
-    image: "/assets/images/rubensFeature.jpeg"
+    image: "/assets/images/looking_out.png"
     image_alt: "image"
-    text: "**Volume 1**<br>Issue 1<br>January 2024."
-    nav: "issuecol"
+    text: "**Volume 2**<br>Issue 1<br>February 2026."
+    nav: "issue2col"
 ---
-
 {% assign groups = site[page.issue] | group_by: "section" | sort: "name"%}
 
 {% for f in site.data.sections[page.issue] %}
@@ -33,8 +32,9 @@ sidebar:
 			{% for page in cat.items %}
 				{% assign post = page %}
 				
-				
+				{% comment %}
 				{% include article_archive.html color=colorstring%}
+				{% endcomment %}
 			{% endfor %}
 		</div>
 
@@ -42,5 +42,3 @@ sidebar:
 	{% endunless%}
 	
 {% endfor %}
-		
-

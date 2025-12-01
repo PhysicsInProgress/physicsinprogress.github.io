@@ -47,3 +47,12 @@ vol1-1:
     btn_class: "btn--primary"
     image_path: "/assets/images/CMB.png"
     alt: "Cosmic microwave background"
+vol2-1:
+  - Coming Soon:
+    label: "Coming Soon"
+    excerpt: 'Our new issue is to be published in February of 2026. If you would like to submit an article to be featured in our upcoming issue, please click the link below.'
+    url: "/submissions/"
+    btn_label: "Submissions page"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/telescope.jpg"
+    alt: "Looking out"

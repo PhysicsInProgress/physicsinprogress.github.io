@@ -312,6 +312,8 @@ compress_html:
 collections:
   vol1-1:
     output: true
+  vol2-1:
+    output: true
 
 
 # Defaults

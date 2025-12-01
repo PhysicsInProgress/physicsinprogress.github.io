@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "Highlights"
-    url: /vol2-1/highlights/
+    url: /vol1-1/highlights/
   - title: "About"
     url: /about/
     sublinks: 
@@ -10,7 +10,7 @@ main:
      - title: "Submissions"
        url: /submissions/
   - title: "Recent"
-    url: /vol2-1/index/
+    url: /vol1-1/index/
     sublinks:
       - title: "Volume 1 (2024)"
         url: "/vol1-1/index/"
@@ -32,6 +32,11 @@ issuecol:
         url: "/vol1-1/aerospace-sciences/"
       - title: "Astronomy and Astrophysics"
         url: "/vol1-1/astronomy-and-astrophysics/"
+issue2col:
+  - title: Collections in this issue
+    children:
+      - title: "Coming soon..."
+        url: /submissions/
 about:
   - title: "About <i>Physics in Progress</i>"
     url: /about/
