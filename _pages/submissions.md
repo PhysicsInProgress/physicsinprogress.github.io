@@ -8,7 +8,7 @@ header:
 permalink: /submissions/
 ---
 # For authors
-Click the link below to submit your manuscript.
+*Physics in Progress* is now accepting submissions for our second volume. We invite contributions on various experiments in basic physics. Before preparing your manuscript, please review our [guidelines for authors](/authors/). Once your manuscript is prepared, please use the portal linked below to submit a new or revised manuscript.
 <div style="display:flex;">
 <div style="flex-basis:75%;max-width: 5in; padding-top:1em;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdvU84foWJ3NosEtML-6y_5OTNbPgnMPvfoXOJvRDpOymR26A/viewform?usp=dialog" class="btn btn--primary btn--large" style="width:100%; text-align:center">Submit a Manuscript</a></div>
 </div>

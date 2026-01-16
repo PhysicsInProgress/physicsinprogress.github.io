@@ -4,20 +4,24 @@ header:
   title: Information for Authors
   overlay_filter: rgba(122,35,47,.8)
   overlay_image: "/assets/images/banner.svg"
-classes: wide
 title: "Phys. in Prog. | Authors"
 author_profile: false
 permalink: /authors/
 ---
+
+
+
 # Manuscript Preparation
 ## Content Guidelines
 **Readability and accessibility**: The manuscript should be directed to a general audience with knowledge typical only to introductory college scientific curricula. Avoid using jargon or technical terms and excessive use of acronyms. If either is necessary, define them in the text. Avoid the introduction of novel terminology.
 
 Please proofread your paper prior to submission to eliminate any grammatical/spelling errors.
 
+**AI usage**: While we appreciate the potential benefit of AI tools for revising text for style and clarity, authors are required to certify that no portion of the manuscript was generated *de novo* by a large language model.
+
 **Justification**:  Original articles require a statement of justification in the submission process. This explanation of why the article meets the journal's acceptance criteria is limited to 100 words.
 
-**Length**:  limits vary according to the format of the submission
+**Length**: Manuscript lenght limits vary according to the format of the submission
 
 - Rapid communication: 3 pages or 1,000 words
 - Original article:  15 pages or 5,000 words
@@ -48,6 +52,7 @@ The anonymous review of articles by peers is an important reason that scientific
 **Rounds of review**: Rapid communications will be reviewed once. Original articles will go through two rounds of review, being returned to the original referees.
 
 **Responding to referee reports**: Authors should read referee reports as calmly and dispassionately as possible. Referees are doing you a service by examining your article for flaws. While they can misunderstand your work and find false flaws, this is often due to a shortcoming in the presentation of the material. Consider making slight changes to avoid misunderstandings presented by the referee. Respond to all referee comments, suggestions, and criticism, noting any changes that were made to the manuscript.
+
 
 <div style="display:flex;">
 <div style="flex-basis:75%;max-width: 5in; padding-top:1em;"><a href="/submissions/" class="btn btn--primary btn--large" style="width:100%; text-align:center">Submit to <i>Physics in Progress</i></a></div>
