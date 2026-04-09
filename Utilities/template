@@ -10,7 +10,7 @@ header:
 type: {{!Type}}
 date: {{!Timestamp}}
 citedate: {{!Submitted}}
-author: {{!AuthorName}}
+author: {{!YAMLName}}
 section: {{!Section}}
 EC: {{!EC}}
 categories:

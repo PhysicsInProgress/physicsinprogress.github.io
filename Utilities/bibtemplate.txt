@@ -1,0 +1,7 @@
+@article{{{!Bibraw}},
+	author = "{{!AuthorName}}",
+	title  = "{{!Title}}",
+	journal="Physics in Progress",
+	year   = {{!Year}},
+	month = feb
+}

@@ -48,11 +48,27 @@ vol1-1:
     image_path: "/assets/images/CMB.png"
     alt: "Cosmic microwave background"
 vol2-1:
-  - Coming Soon:
-    label: "Coming Soon"
-    excerpt: 'Our new issue is to be published in February of 2026. If you would like to submit an article to be featured in our upcoming issue, please click the link below.'
-    url: "/submissions/"
-    btn_label: "Submissions page"
+  - Quantum:
+    label: "Quantum"
+    excerpt: 'Exploring quantum phenomena, with contributions on the photoelectric effect and electron diffraction.'
+    url: "/vol2-1/quantum/"
+    btn_label: "Explore this collection"
     btn_class: "btn--primary"
-    image_path: "/assets/images/telescope.jpg"
-    alt: "Looking out"
+    image_path: "/assets/images/gasemission.jpg"
+    alt: "Gas emission"
+  - Electron properties:
+    label: "Electron properties"
+    excerpt: 'Recreations of historic electron measurements, establishing the charge and mass of the electron.'
+    url: "/vol2-1/electron-properties/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/Helmholtz.png"
+    alt: "Helmholtz coil"
+  - Waves and optics:
+    label: "Waves and optics"
+    excerpt: 'Exploring oscillatory phenomena, from pendulums to wave optics.'
+    url: "/vol2-1/waves-and-optics/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/interferometerFeature.jpg"
+    alt: "Interferomter fringes"

@@ -1,25 +1,38 @@
 clear
 
 % Used to generate paths
-volume = 1;
+volume = 2;
 issue = 1;
+year = 2026;
 
-manuscript_csv      = "Manuscripts.csv"; % relative path to manuscript info
-issue_csv           = "Issue.csv"; % relative path to section info
+manuscript_csv      = "Manuscripts_issue_2.csv"; % relative path to manuscript info
+issue_csv           = "Issue_2.csv"; % relative path to section info
 article_template    = "template"; % relative path to manuscript template
 collection_template = "template_collection.html"; % relative path to section template
-sections_YAML       = "../_data/sections.yml";
-nav_YAML            = "../_data/navigationtest.yml";
+bib_template = "bibtemplate.txt"; % relative path to section template
+sections_YAML       = "test/sections.yml";
+nav_YAML            = "test/navigationtest.yml";
+authors_YAML =        "test/authors.yml";
+% authors_YAML =        "../_data/authors.yml";
+% sections_YAML       = "../_data/sections.yml";
+% nav_YAML            = "../_data/navigationtest.yml";
 
 % Path that will be used to generate files
 issuestr = "vol"+string(volume)+"-"+string(issue);
 volpath = "/"+issuestr+"/";
 colpath = "../_"+issuestr+"/";
 pagepath = "../_pages/";
+bib_path = "../assets";
+% volpath = "/"+issuestr+"/";
+% colpath = "test/_"+issuestr+"/";
+% pagepath = "test/_pages/";
+FeatureImage = "interferometerFeature.jpg";
 
 
 % Read the data
-mantab = readtable(manuscript_csv);
+opts = detectImportOptions(manuscript_csv);
+opts = setvaropts(opts,'AuthorSuffix','FillValue','');
+mantab = readtable(manuscript_csv,opts);
 issuetab = readtable(issue_csv);
 
 % Correct the datetime google forms -> jekyll format
@@ -28,15 +41,22 @@ mantab.Timestamp.Format = 'yyyy-MM-dd';
 
 % Add some post-processed columns
 mantab.AuthorName = strip(join([mantab.AuthorFirst,mantab.AuthorLast,mantab.AuthorSuffix]," ",2));
+mantab.YAMLName = strrep(mantab.AuthorName,"'","");
 mantab.PDF = volpath+string(mantab.PDF);
+mantab.Bibraw = mantab.Bib;
 mantab.Bib = volpath+string(mantab.Bib);
 slugify = @(str) regexprep(lower(string(str)),'[^a-zA-Z0-9]','-');
 assigntab = @(str) repmat(str,height(issuetab),1);
 issuetab.Permalink = volpath + slugify(string(issuetab.Section))+"/";
 issuetab.Issue = assigntab(issuestr);
+issuetab.Volno = assigntab(string(volume));
+issuetab.Issueno = assigntab(string(issue));
+issuetab.FeatureImage = assigntab(FeatureImage);
+issuetab.Year = assigntab(string(year));
+mantab.Year = repmat(string(year),height(mantab),1);
 
 
-generateAuthors(mantab);
+generateAuthors(mantab,authors_YAML);
 
 generateArticles(mantab,article_template,colpath);
 
@@ -48,7 +68,8 @@ generateSectionsYAML(issuetab,sections_YAML);
 generateNavYAML(issuetab,nav_YAML,volpath);
 
 % Update the collections pages
-generateCollections(issuetab,collection_template,pagepath);
+generateCollections(issuetab,collection_template,pagepath,volume);
+generateBibFiles(mantab,bib_template,bib_path);
 
 function [] = generateNavYAML(issuetab,filename,volpath)
 navhead = "# main links\nmain:\n  - title: ""Highlights""\n    url: /vol1-1/highlights/\n  - title: ""About""\n    url: /about/\n    sublinks: \n     - title: ""Information for Authors""\n       url: /authors/\n     - title: ""Submissions""\n       url: /submissions/\n  - title: ""Recent""\n";
@@ -138,7 +159,7 @@ for i = 1:height(tab)
 end
 end
 
-function [] = generateCollections(tab,template_filename,path)
+function [] = generateCollections(tab,template_filename,path,issuenum)
 
 slugify = @(str) regexprep(lower(string(str)),'[^a-zA-Z0-9]','-');
 template = readlines(template_filename);
@@ -151,7 +172,71 @@ for i = 1:height(tab)
     row = tab(i,:);
     
 
-    f = fopen(path+slugify(string(row.Section))+".html",'w');
+    f = fopen(path+slugify(string(row.Section))+string(issuenum)+".html",'w');
+
+    pat = "{{!" + lettersPattern + "}}";
+    for i = 1:numel(template)
+        line = template(i);
+        variablestrings = extract(line,pat);
+        if ~isempty(variablestrings)
+            variable = erase(variablestrings,["{","}","!"]);
+            value = string(row{1,variable});
+            if strcmp(variable,"Title")
+                value = replace(value,"""","""""");
+            elseif strcmp(variable,"Abstract")
+                value = replace(value,'''','''''');
+            end
+            value = replace(value,"%","%%");
+            value = replace(value,"\","\\");
+            line = replace(line,variablestrings',value);
+        end
+
+        line = replace(line,"%","%%");
+        line = replace(line,"\","\\");
+        fprintf(f,line+"\n");
+        thing = 1;
+    end
+
+    fclose(f);
+end
+end
+
+function [] = generateAuthors(tab,file)
+authfile = fopen(file,'w');
+
+[~,ia,~] = unique(tab.AuthorName);
+authtab = tab(ia,:);
+
+for i = 1:height(authtab)
+    row = authtab(i,:);
+    row.Affiliation = replace(string(row.Affiliation),"2001","<br>2001");
+    fprintf(authfile,"%s: \n",string(row.YAMLName));
+    fprintf(authfile,"  name        : ""%s"" \n", string(row.AuthorName));
+    fprintf(authfile,"  first       : ""%s""\n", string(row.AuthorFirst));
+    fprintf(authfile,"  last        : ""%s""\n", string(row.AuthorLast));
+    fprintf(authfile,"  suffix      : ""%s""\n", string(row.AuthorSuffix));
+    fprintf(authfile,"  bio         : ""%s"" \n", string(row.Affiliation));
+    fprintf(authfile,"  links: \n    - label: ""Email""\n      icon: ""fas fa-fw fa-envelope-square"" \n");
+    fprintf(authfile,"      url: ""mailto:%s"" \n",string(row.EmailAddress));
+end
+fclose(authfile);
+
+end
+
+function generateBibFiles(tab,template_filename,path)
+
+template = readlines(template_filename);
+
+for i = 1:height(tab)
+    row = tab(i,:);
+    
+    if contains(string(row.ShortID),"OA")
+        row.Type = "Original Article";
+    else
+        row.Type = "Rapid Communication";
+    end
+
+    f = fopen(path+string(row.Bib)+".bib",'w');
 
     pat = "{{!" + lettersPattern + "}}";
     for i = 1:numel(template)
@@ -169,35 +254,10 @@ for i = 1:height(tab)
             value = replace(value,"\","\\");
             line = replace(line,pat,value);
         end
-
-        line = replace(line,"%","%%");
-        line = replace(line,"\","\\");
         fprintf(f,line+"\n");
         thing = 1;
     end
 
     fclose(f);
 end
-end
-
-function [] = generateAuthors(tab)
-authfile = fopen("../_data/authors.yml",'w');
-
-[~,ia,~] = unique(tab.AuthorName);
-authtab = tab(ia,:);
-
-for i = 1:height(authtab)
-    row = authtab(i,:);
-    row.Affiliation = replace(string(row.Affiliation),"2001","<br>2001");
-    fprintf(authfile,"%s: \n",string(row.AuthorName));
-    fprintf(authfile,"  name        : ""%s"" \n", string(row.AuthorName));
-    fprintf(authfile,"  first       : ""%s""\n", string(row.AuthorFirst));
-    fprintf(authfile,"  last        : ""%s""\n", string(row.AuthorLast));
-    fprintf(authfile,"  suffix      : ""%s""\n", string(row.AuthorSuffix));
-    fprintf(authfile,"  bio         : ""%s"" \n", string(row.Affiliation));
-    fprintf(authfile,"  links: \n    - label: ""Email""\n      icon: ""fas fa-fw fa-envelope-square"" \n");
-    fprintf(authfile,"      url: ""mailto:%s"" \n",string(row.EmailAddress));
-end
-fclose(authfile);
-
 end

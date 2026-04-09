@@ -1,0 +1,40 @@
+Braedon Larsen: 
+  name        : "Braedon Larsen" 
+  first       : "Braedon"
+  last        : "Larsen"
+  suffix      : ""
+  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
+  links: 
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square" 
+      url: "mailto:blarsen@carthage.edu" 
+Brookelyn Velmont: 
+  name        : "Brookelyn Velmont" 
+  first       : "Brookelyn"
+  last        : "Velmont"
+  suffix      : ""
+  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
+  links: 
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square" 
+      url: "mailto:bvelmont@carthage.edu" 
+SemaJe Zechariah Farmer: 
+  name        : "Sema'Je Zechariah Farmer" 
+  first       : "Sema'Je Zechariah"
+  last        : "Farmer"
+  suffix      : ""
+  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
+  links: 
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square" 
+      url: "mailto:sfarmer@carthage.edu" 
+Skylar Farr: 
+  name        : "Skylar Farr" 
+  first       : "Skylar"
+  last        : "Farr"
+  suffix      : ""
+  bio         : "Department of Physics and Astronomy, Carthage College, <br>2001 Alford Park Drive, Kenosha, WI 53140, USA" 
+  links: 
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square" 
+      url: "mailto:sfarr@carthage.edu" 

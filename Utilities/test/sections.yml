@@ -1,0 +1,25 @@
+vol2-1:
+  - Quantum:
+    label: "Quantum"
+    excerpt: 'Including the photoelectric effect and gas emission'
+    url: "/vol2-1/quantum/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/gasemission.jpg"
+    alt: "Gas emission"
+  - Electron properties:
+    label: "Electron properties"
+    excerpt: 'Recreation of historic electron measurements'
+    url: "/vol2-1/electron-properties/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/Helmholtz.png"
+    alt: "Helmholtz coil"
+  - Waves and optics:
+    label: "Waves and optics"
+    excerpt: 'Various experiments of oscillatory phenomena'
+    url: "/vol2-1/waves-and-optics/"
+    btn_label: "Explore this collection"
+    btn_class: "btn--primary"
+    image_path: "/assets/images/interferometerFeature.jpg"
+    alt: "Interferomter fringes"

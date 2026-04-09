@@ -1,0 +1,38 @@
+# main links
+main:
+  - title: "Highlights"
+    url: /vol1-1/highlights/
+  - title: "About"
+    url: /about/
+    sublinks: 
+     - title: "Information for Authors"
+       url: /authors/
+     - title: "Submissions"
+       url: /submissions/
+  - title: "Recent"
+    url: /vol2-1/index/
+    sublinks:
+      - title: "Quantum"
+        url: "/vol2-1/quantum/"
+      - title: "Electron properties"
+        url: "/vol2-1/electron-properties/"
+      - title: "Waves and optics"
+        url: "/vol2-1/waves-and-optics/"
+issuecol:
+  - title: Collections in this issue
+    url: /vol2-1/index/
+    children:
+      - title: "Quantum"
+        url: "/vol2-1/quantum/"
+      - title: "Electron properties"
+        url: "/vol2-1/electron-properties/"
+      - title: "Waves and optics"
+        url: "/vol2-1/waves-and-optics/"
+about:
+  - title: "About <i>Physics in Progress</i>"
+    url: /about/
+    children:
+      - title: "Information for authors"
+        url: /authors/
+      - title: Submissions
+        url: /submissions/ 

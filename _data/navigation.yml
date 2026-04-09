@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "Highlights"
-    url: /vol1-1/highlights/
+    url: /vol2-1/highlights/
   - title: "About"
     url: /about/
     sublinks: 
@@ -34,9 +34,14 @@ issuecol:
         url: "/vol1-1/astronomy-and-astrophysics/"
 issue2col:
   - title: Collections in this issue
+    url: /vol2-1/index/
     children:
-      - title: "Coming soon..."
-        url: /submissions/
+      - title: "Quantum"
+        url: "/vol2-1/quantum/"
+      - title: "Electron properties"
+        url: "/vol2-1/electron-properties/"
+      - title: "Waves and optics"
+        url: "/vol2-1/waves-and-optics/"
 about:
   - title: "About <i>Physics in Progress</i>"
     url: /about/
